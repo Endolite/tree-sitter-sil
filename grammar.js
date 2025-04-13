@@ -33,8 +33,8 @@ module.exports = grammar({
             // SIL
             $.skip,
             $.block,
-            $.while,
-            $.if,
+            $.while_loop,
+            $.if_stmt,
             $.var_assgt,
             // SIL-P
             $.proc_decl,
@@ -47,7 +47,7 @@ module.exports = grammar({
             $.field,
             $.method_call,
             // Utility
-            $.print,
+            $.print_stmt,
           ),
           $.comment,
         ),
@@ -73,53 +73,64 @@ module.exports = grammar({
       prec.right(
         1,
         choice(
-          token(prec(10, "true")),
-          token(prec(10, "false")),
-          seq(token(prec(10, "not")), $.boolexp),
-          seq(
-            $.boolexp,
-            choice(token(prec(10, "and")), token(prec(10, "or"))),
-            $.boolexp,
-          ),
+          $.true,
+          $.false,
+          seq($.not, $.boolexp),
+          seq($.boolexp, $.logic_bin, $.boolexp),
           seq($.exp, choice(">", "<", "="), $.exp),
         ),
       ),
 
+    true: ($) => token(prec(10, "true")),
+
+    false: ($) => token(prec(10, "false")),
+
+    not: ($) => token(prec(10, "not")),
+
+    logic_bin: ($) => choice(token(prec(10, "and")), token(prec(10, "or"))),
+
     skip: ($) => token(prec(10, "skip")),
 
     block: ($) =>
-      prec.right(
-        5,
-        seq(
-          token(prec(10, "begin")),
-          field("body", $.statement_list),
-          token(prec(10, "end")),
-        ),
-      ),
+      prec.right(5, seq($.begin, field("body", $.statement_list), $.end)),
 
-    while: ($) =>
+    begin: ($) => token(prec(10, "begin")),
+
+    end: ($) => token(prec(10, "end")),
+
+    while_loop: ($) =>
       prec.right(
         3,
         seq(
-          token(prec(10, "while")),
+          $.while,
           field("whileCond", $.boolexp),
-          token(prec(10, "do")),
+          $.do,
           field("doBlock", $.statement),
         ),
       ),
 
-    if: ($) =>
+    while: ($) => token(prec(10, "while")),
+
+    do: ($) => token(prec(10, "do")),
+
+    if_stmt: ($) =>
       prec.right(
         3,
         seq(
-          token(prec(10, "if")),
+          $.if,
           field("branchOn", $.boolexp),
-          token(prec(10, "then")),
+          $.then,
           field("thenBlock", $.statement),
-          token(prec(10, "else")),
+          $.else,
           field("elseBlock", $.statement),
         ),
       ),
+
+    if: ($) => token(prec(10, "if")),
+
+    then: ($) => token(prec(10, "then")),
+
+    else: ($) => token(prec(10, "else")),
 
     var: ($) => prec.left(choice($.ident, $.field, $.arr_idx)),
 
@@ -137,8 +148,8 @@ module.exports = grammar({
       prec.right(
         2,
         seq(
-          token(prec(10, "procedure")),
-          field("name", $.var),
+          $.procedure,
+          field("name", $.fun),
           "(",
           field("params", $.var_list),
           ")",
@@ -148,30 +159,38 @@ module.exports = grammar({
         ),
       ),
 
-    proc_call: ($) =>
-      seq(field("name", $.var), "(", field("args", optional($.exp_list)), ")"),
+    procedure: ($) => token(prec(10, "procedure")),
 
-    new_arr: ($) => seq(token(prec(10, "array")), "[", $.exp, "]"),
+    fun: ($) => $.var,
+
+    proc_call: ($) =>
+      seq(field("name", $.fun), "(", field("args", optional($.exp_list)), ")"),
+
+    new_arr: ($) => seq($.array, "[", $.exp, "]"),
+
+    array: ($) => token(prec(10, "array")),
 
     arr_idx: ($) => prec.left(seq($.var, "[", $.exp, "]")),
 
     class_decl: ($) =>
       seq(
-        token(prec(10, "class")),
+        $.class,
         field("name", $.var),
         "(",
         field("params", optional($.var_list)),
         ")",
         ";",
-        token(prec(10, "begin")),
+        $.begin,
         optional(seq(repeat(seq($.method_decl, ";")), $.method_decl)),
-        token(prec(10, "end")),
+        $.end,
       ),
+
+    class: ($) => token(prec(10, "class")),
 
     method_decl: ($) =>
       seq(
-        "method",
-        field("name", $.var),
+        $.method,
+        field("name", $.fun),
         "(",
         field("params", optional($.var_list)),
         ")",
@@ -180,7 +199,11 @@ module.exports = grammar({
         field("body", $.block),
       ),
 
-    new_obj: ($) => seq($.var, ":=", token(prec(10, "new")), $.var),
+    method: ($) => token(prec(10, "method")),
+
+    new_obj: ($) => seq($.var, ":=", $.new, $.var),
+
+    new: ($) => token(prec(10, "new")),
 
     field: ($) => prec.left(seq($.var, "->", $.var)),
 
@@ -188,13 +211,17 @@ module.exports = grammar({
       seq(
         field("object", $.var),
         ".",
-        field("methodName", $.var),
+        field("methodName", $.fun),
         "(",
         field("args", optional($.exp_list)),
         ")",
       ),
 
-    print: ($) => prec(4, seq(token(prec(10, "print")), $.exp)),
+    property: ($) => $.var,
+
+    print_stmt: ($) => prec(4, seq($.print, $.exp)),
+
+    print: ($) => token(prec(10, "print")),
 
     comment: ($) => prec(100, token(seq("%", /[^\n]*/))),
   },

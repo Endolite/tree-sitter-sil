@@ -32,6 +32,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "begin",
+          "named": true
+        },
+        {
+          "type": "end",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -40,7 +54,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "boolexp",
@@ -48,6 +62,22 @@
         },
         {
           "type": "exp",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "logic_bin",
+          "named": true
+        },
+        {
+          "type": "not",
+          "named": true
+        },
+        {
+          "type": "true",
           "named": true
         }
       ]
@@ -80,8 +110,20 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
+        {
+          "type": "begin",
+          "named": true
+        },
+        {
+          "type": "class",
+          "named": true
+        },
+        {
+          "type": "end",
+          "named": true
+        },
         {
           "type": "method_decl",
           "named": true
@@ -156,7 +198,22 @@
     }
   },
   {
-    "type": "if",
+    "type": "fun",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "if_stmt",
     "named": true,
     "fields": {
       "branchOn": {
@@ -189,7 +246,30 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "else",
+          "named": true
+        },
+        {
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "then",
+          "named": true
+        }
+      ]
     }
+  },
+  {
+    "type": "logic_bin",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "method_call",
@@ -210,7 +290,7 @@
         "required": true,
         "types": [
           {
-            "type": "var",
+            "type": "fun",
             "named": true
           }
         ]
@@ -256,7 +336,7 @@
         "required": true,
         "types": [
           {
-            "type": "var",
+            "type": "fun",
             "named": true
           }
         ]
@@ -271,6 +351,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "method",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -278,9 +368,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "array",
+          "named": true
+        },
         {
           "type": "exp",
           "named": true
@@ -297,6 +391,10 @@
       "required": true,
       "types": [
         {
+          "type": "new",
+          "named": true
+        },
+        {
           "type": "var",
           "named": true
         }
@@ -304,15 +402,19 @@
     }
   },
   {
-    "type": "print",
+    "type": "print_stmt",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "exp",
+          "named": true
+        },
+        {
+          "type": "print",
           "named": true
         }
       ]
@@ -337,7 +439,7 @@
         "required": true,
         "types": [
           {
-            "type": "var",
+            "type": "fun",
             "named": true
           }
         ]
@@ -373,7 +475,7 @@
         "required": true,
         "types": [
           {
-            "type": "var",
+            "type": "fun",
             "named": true
           }
         ]
@@ -388,6 +490,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "procedure",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -450,7 +562,7 @@
           "named": true
         },
         {
-          "type": "if",
+          "type": "if_stmt",
           "named": true
         },
         {
@@ -466,7 +578,7 @@
           "named": true
         },
         {
-          "type": "print",
+          "type": "print_stmt",
           "named": true
         },
         {
@@ -486,7 +598,7 @@
           "named": true
         },
         {
-          "type": "while",
+          "type": "while_loop",
           "named": true
         }
       ]
@@ -584,7 +696,7 @@
     }
   },
   {
-    "type": "while",
+    "type": "while_loop",
     "named": true,
     "fields": {
       "doBlock": {
@@ -607,6 +719,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "do",
+          "named": true
+        },
+        {
+          "type": "while",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -675,31 +801,31 @@
   },
   {
     "type": "array",
-    "named": false
+    "named": true
   },
   {
     "type": "begin",
-    "named": false
+    "named": true
   },
   {
     "type": "class",
-    "named": false
+    "named": true
   },
   {
     "type": "do",
-    "named": false
+    "named": true
   },
   {
     "type": "else",
-    "named": false
+    "named": true
   },
   {
     "type": "end",
-    "named": false
+    "named": true
   },
   {
     "type": "false",
-    "named": false
+    "named": true
   },
   {
     "type": "ident",
@@ -707,19 +833,19 @@
   },
   {
     "type": "if",
-    "named": false
+    "named": true
   },
   {
     "type": "method",
-    "named": false
+    "named": true
   },
   {
     "type": "new",
-    "named": false
+    "named": true
   },
   {
     "type": "not",
-    "named": false
+    "named": true
   },
   {
     "type": "or",
@@ -727,11 +853,11 @@
   },
   {
     "type": "print",
-    "named": false
+    "named": true
   },
   {
     "type": "procedure",
-    "named": false
+    "named": true
   },
   {
     "type": "skip",
@@ -739,14 +865,14 @@
   },
   {
     "type": "then",
-    "named": false
+    "named": true
   },
   {
     "type": "true",
-    "named": false
+    "named": true
   },
   {
     "type": "while",
-    "named": false
+    "named": true
   }
 ]

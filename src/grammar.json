@@ -105,11 +105,11 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "while"
+                "name": "while_loop"
               },
               {
                 "type": "SYMBOL",
-                "name": "if"
+                "name": "if_stmt"
               },
               {
                 "type": "SYMBOL",
@@ -145,7 +145,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "print"
+                "name": "print_stmt"
               }
             ]
           },
@@ -260,40 +260,19 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "true"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "true"
           },
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "false"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "false"
           },
           {
             "type": "SEQ",
             "members": [
               {
-                "type": "TOKEN",
-                "content": {
-                  "type": "PREC",
-                  "value": 10,
-                  "content": {
-                    "type": "STRING",
-                    "value": "not"
-                  }
-                }
+                "type": "SYMBOL",
+                "name": "not"
               },
               {
                 "type": "SYMBOL",
@@ -309,31 +288,8 @@
                 "name": "boolexp"
               },
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PREC",
-                      "value": 10,
-                      "content": {
-                        "type": "STRING",
-                        "value": "and"
-                      }
-                    }
-                  },
-                  {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PREC",
-                      "value": 10,
-                      "content": {
-                        "type": "STRING",
-                        "value": "or"
-                      }
-                    }
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "logic_bin"
               },
               {
                 "type": "SYMBOL",
@@ -374,6 +330,66 @@
         ]
       }
     },
+    "true": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "true"
+        }
+      }
+    },
+    "false": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "false"
+        }
+      }
+    },
+    "not": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "not"
+        }
+      }
+    },
+    "logic_bin": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 10,
+            "content": {
+              "type": "STRING",
+              "value": "and"
+            }
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 10,
+            "content": {
+              "type": "STRING",
+              "value": "or"
+            }
+          }
+        }
+      ]
+    },
     "skip": {
       "type": "TOKEN",
       "content": {
@@ -392,15 +408,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "begin"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "begin"
           },
           {
             "type": "FIELD",
@@ -411,35 +420,43 @@
             }
           },
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "end"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "end"
           }
         ]
       }
     },
-    "while": {
+    "begin": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "begin"
+        }
+      }
+    },
+    "end": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "end"
+        }
+      }
+    },
+    "while_loop": {
       "type": "PREC_RIGHT",
       "value": 3,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "while"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "while"
           },
           {
             "type": "FIELD",
@@ -450,15 +467,8 @@
             }
           },
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "do"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "do"
           },
           {
             "type": "FIELD",
@@ -471,22 +481,37 @@
         ]
       }
     },
-    "if": {
+    "while": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "while"
+        }
+      }
+    },
+    "do": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "do"
+        }
+      }
+    },
+    "if_stmt": {
       "type": "PREC_RIGHT",
       "value": 3,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "if"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "if"
           },
           {
             "type": "FIELD",
@@ -497,15 +522,8 @@
             }
           },
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "then"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "then"
           },
           {
             "type": "FIELD",
@@ -516,15 +534,8 @@
             }
           },
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "else"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "else"
           },
           {
             "type": "FIELD",
@@ -535,6 +546,39 @@
             }
           }
         ]
+      }
+    },
+    "if": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "if"
+        }
+      }
+    },
+    "then": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "then"
+        }
+      }
+    },
+    "else": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "else"
+        }
       }
     },
     "var": {
@@ -669,22 +713,15 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "procedure"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "procedure"
           },
           {
             "type": "FIELD",
             "name": "name",
             "content": {
               "type": "SYMBOL",
-              "name": "var"
+              "name": "fun"
             }
           },
           {
@@ -734,6 +771,21 @@
         ]
       }
     },
+    "procedure": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "procedure"
+        }
+      }
+    },
+    "fun": {
+      "type": "SYMBOL",
+      "name": "var"
+    },
     "proc_call": {
       "type": "SEQ",
       "members": [
@@ -742,7 +794,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "fun"
           }
         },
         {
@@ -775,15 +827,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "array"
-            }
-          }
+          "type": "SYMBOL",
+          "name": "array"
         },
         {
           "type": "STRING",
@@ -798,6 +843,17 @@
           "value": "]"
         }
       ]
+    },
+    "array": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "array"
+        }
+      }
     },
     "arr_idx": {
       "type": "PREC_LEFT",
@@ -828,15 +884,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "class"
-            }
-          }
+          "type": "SYMBOL",
+          "name": "class"
         },
         {
           "type": "FIELD",
@@ -875,15 +924,8 @@
           "value": ";"
         },
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "begin"
-            }
-          }
+          "type": "SYMBOL",
+          "name": "begin"
         },
         {
           "type": "CHOICE",
@@ -919,31 +961,35 @@
           ]
         },
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "end"
-            }
-          }
+          "type": "SYMBOL",
+          "name": "end"
         }
       ]
+    },
+    "class": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "class"
+        }
+      }
     },
     "method_decl": {
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "method"
+          "type": "SYMBOL",
+          "name": "method"
         },
         {
           "type": "FIELD",
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "fun"
           }
         },
         {
@@ -1000,6 +1046,17 @@
         }
       ]
     },
+    "method": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "method"
+        }
+      }
+    },
     "new_obj": {
       "type": "SEQ",
       "members": [
@@ -1012,21 +1069,25 @@
           "value": ":="
         },
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": 10,
-            "content": {
-              "type": "STRING",
-              "value": "new"
-            }
-          }
+          "type": "SYMBOL",
+          "name": "new"
         },
         {
           "type": "SYMBOL",
           "name": "var"
         }
       ]
+    },
+    "new": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "new"
+        }
+      }
     },
     "field": {
       "type": "PREC_LEFT",
@@ -1069,7 +1130,7 @@
           "name": "methodName",
           "content": {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "fun"
           }
         },
         {
@@ -1098,28 +1159,36 @@
         }
       ]
     },
-    "print": {
+    "property": {
+      "type": "SYMBOL",
+      "name": "var"
+    },
+    "print_stmt": {
       "type": "PREC",
       "value": 4,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "TOKEN",
-            "content": {
-              "type": "PREC",
-              "value": 10,
-              "content": {
-                "type": "STRING",
-                "value": "print"
-              }
-            }
+            "type": "SYMBOL",
+            "name": "print"
           },
           {
             "type": "SYMBOL",
             "name": "exp"
           }
         ]
+      }
+    },
+    "print": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "STRING",
+          "value": "print"
+        }
       }
     },
     "comment": {
