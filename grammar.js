@@ -175,7 +175,7 @@ module.exports = grammar({
     class_decl: ($) =>
       seq(
         $.class,
-        field("name", $.var),
+        field("name", $.classname),
         "(",
         field("params", optional($.var_list)),
         ")",
@@ -186,6 +186,8 @@ module.exports = grammar({
       ),
 
     class: ($) => token(prec(10, "class")),
+
+    classname: ($) => $.var,
 
     method_decl: ($) =>
       seq(
