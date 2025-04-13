@@ -55,12 +55,14 @@ module.exports = grammar({
 
     exp: ($) =>
       prec.left(
-        5,
+        10,
         choice(
           /\d+/,
           $.lval,
           seq($.exp, choice("+", "*"), $.exp),
-          seq("-", $.exp),
+          seq("(", $.exp, choice("+", "*"), $.exp, ")"),
+          choice(seq("-", $.exp)),
+          choice(seq("-", "(", $.exp, ")")),
           $.proc_call,
           $.arr_idx,
           $.method_call,
@@ -76,8 +78,11 @@ module.exports = grammar({
           $.true,
           $.false,
           seq($.not, $.boolexp),
+          seq($.not, "(", $.boolexp, ")"),
           seq($.boolexp, $.logic_bin, $.boolexp),
+          seq("(", $.boolexp, $.logic_bin, $.boolexp, ")"),
           seq($.exp, choice(">", "<", "="), $.exp),
+          seq(")", $.exp, choice(">", "<", "="), $.exp, ")"),
         ),
       ),
 
