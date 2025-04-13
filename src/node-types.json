@@ -12,7 +12,7 @@
           "named": true
         },
         {
-          "type": "var",
+          "type": "lval",
           "named": true
         }
       ]
@@ -92,7 +92,7 @@
         "required": true,
         "types": [
           {
-            "type": "var",
+            "type": "classname",
             "named": true
           }
         ]
@@ -132,6 +132,21 @@
     }
   },
   {
+    "type": "classname",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "lval",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -153,15 +168,15 @@
           "named": true
         },
         {
+          "type": "lval",
+          "named": true
+        },
+        {
           "type": "method_call",
           "named": true
         },
         {
           "type": "proc_call",
-          "named": true
-        },
-        {
-          "type": "var",
           "named": true
         }
       ]
@@ -191,7 +206,26 @@
       "required": true,
       "types": [
         {
-          "type": "var",
+          "type": "fieldlab",
+          "named": true
+        },
+        {
+          "type": "lval",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fieldlab",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "lval",
           "named": true
         }
       ]
@@ -206,7 +240,7 @@
       "required": true,
       "types": [
         {
-          "type": "var",
+          "type": "lval",
           "named": true
         }
       ]
@@ -270,6 +304,29 @@
     "type": "logic_bin",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "lval",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "arr_idx",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "method_call",
@@ -391,11 +448,15 @@
       "required": true,
       "types": [
         {
-          "type": "new",
+          "type": "classname",
           "named": true
         },
         {
-          "type": "var",
+          "type": "lval",
+          "named": true
+        },
+        {
+          "type": "new",
           "named": true
         }
       ]
@@ -632,14 +693,6 @@
       "required": true,
       "types": [
         {
-          "type": "arr_idx",
-          "named": true
-        },
-        {
-          "type": "field",
-          "named": true
-        },
-        {
           "type": "ident",
           "named": true
         }
@@ -655,11 +708,11 @@
       "required": true,
       "types": [
         {
-          "type": "rval",
+          "type": "lval",
           "named": true
         },
         {
-          "type": "var",
+          "type": "rval",
           "named": true
         }
       ]

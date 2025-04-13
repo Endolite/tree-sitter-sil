@@ -168,7 +168,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "lval"
           },
           {
             "type": "SEQ",
@@ -582,6 +582,10 @@
       }
     },
     "var": {
+      "type": "SYMBOL",
+      "name": "ident"
+    },
+    "lval": {
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
@@ -589,7 +593,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "ident"
+            "name": "var"
           },
           {
             "type": "SYMBOL",
@@ -614,7 +618,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "lval"
           },
           {
             "type": "STRING",
@@ -784,7 +788,7 @@
     },
     "fun": {
       "type": "SYMBOL",
-      "name": "var"
+      "name": "lval"
     },
     "proc_call": {
       "type": "SEQ",
@@ -863,7 +867,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "lval"
           },
           {
             "type": "STRING",
@@ -892,7 +896,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "classname"
           }
         },
         {
@@ -976,6 +980,10 @@
           "value": "class"
         }
       }
+    },
+    "classname": {
+      "type": "SYMBOL",
+      "name": "lval"
     },
     "method_decl": {
       "type": "SEQ",
@@ -1062,7 +1070,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "var"
+          "name": "lval"
         },
         {
           "type": "STRING",
@@ -1074,7 +1082,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "var"
+          "name": "classname"
         }
       ]
     },
@@ -1097,7 +1105,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "lval"
           },
           {
             "type": "STRING",
@@ -1105,9 +1113,17 @@
           },
           {
             "type": "SYMBOL",
-            "name": "var"
+            "name": "fieldlab"
           }
         ]
+      }
+    },
+    "fieldlab": {
+      "type": "PREC_LEFT",
+      "value": 5,
+      "content": {
+        "type": "SYMBOL",
+        "name": "lval"
       }
     },
     "method_call": {

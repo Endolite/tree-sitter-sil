@@ -1,12 +1,13 @@
 [(true) (false)] @boolean
 [(not) (logic_bin)] @operator
 
-[(begin) (end)] @label
+[(begin) (end)] @attribute
 
 [(skip) (if) (then) (else) (while) (do) (procedure) (array) (class) (method) (new) (print)] @keyword
 
-(var) @variable
-(class) @variable.special
+(classname) @variable.special
 (fun) @function
+(var) @variable
+(fieldlab) @property
 
 (comment) @comment

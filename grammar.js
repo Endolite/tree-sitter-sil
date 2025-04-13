@@ -58,7 +58,7 @@ module.exports = grammar({
         5,
         choice(
           /\d+/,
-          $.var,
+          $.lval,
           seq($.exp, choice("+", "*"), $.exp),
           seq("-", $.exp),
           $.proc_call,
@@ -132,11 +132,13 @@ module.exports = grammar({
 
     else: ($) => token(prec(10, "else")),
 
-    var: ($) => prec.left(choice($.ident, $.field, $.arr_idx)),
+    var: ($) => $.ident,
+
+    lval: ($) => prec.left(choice($.var, $.field, $.arr_idx)),
 
     ident: ($) => /[A-Za-z][A-Za-z0-9]*/,
 
-    var_assgt: ($) => prec.left(seq($.var, ":=", $.rval)),
+    var_assgt: ($) => prec.left(seq($.lval, ":=", $.rval)),
 
     rval: ($) => choice($.exp, $.new_arr),
 
@@ -161,7 +163,7 @@ module.exports = grammar({
 
     procedure: ($) => token(prec(10, "procedure")),
 
-    fun: ($) => $.var,
+    fun: ($) => $.lval,
 
     proc_call: ($) =>
       seq(field("name", $.fun), "(", field("args", optional($.exp_list)), ")"),
@@ -170,7 +172,7 @@ module.exports = grammar({
 
     array: ($) => token(prec(10, "array")),
 
-    arr_idx: ($) => prec.left(seq($.var, "[", $.exp, "]")),
+    arr_idx: ($) => prec.left(seq($.lval, "[", $.exp, "]")),
 
     class_decl: ($) =>
       seq(
@@ -187,7 +189,7 @@ module.exports = grammar({
 
     class: ($) => token(prec(10, "class")),
 
-    classname: ($) => $.var,
+    classname: ($) => $.lval,
 
     method_decl: ($) =>
       seq(
@@ -203,11 +205,13 @@ module.exports = grammar({
 
     method: ($) => token(prec(10, "method")),
 
-    new_obj: ($) => seq($.var, ":=", $.new, $.var),
+    new_obj: ($) => seq($.lval, ":=", $.new, $.classname),
 
     new: ($) => token(prec(10, "new")),
 
-    field: ($) => prec.left(seq($.var, "->", $.var)),
+    field: ($) => prec.left(seq($.lval, "->", $.fieldlab)),
+
+    fieldlab: ($) => prec.left(5, $.lval),
 
     method_call: ($) =>
       seq(
