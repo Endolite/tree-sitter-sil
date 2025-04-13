@@ -140,7 +140,7 @@
       "required": true,
       "types": [
         {
-          "type": "lval",
+          "type": "ident",
           "named": true
         }
       ]
@@ -240,7 +240,7 @@
       "required": true,
       "types": [
         {
-          "type": "lval",
+          "type": "ident",
           "named": true
         }
       ]

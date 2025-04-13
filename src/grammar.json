@@ -788,7 +788,7 @@
     },
     "fun": {
       "type": "SYMBOL",
-      "name": "lval"
+      "name": "ident"
     },
     "proc_call": {
       "type": "SEQ",
@@ -983,7 +983,7 @@
     },
     "classname": {
       "type": "SYMBOL",
-      "name": "lval"
+      "name": "ident"
     },
     "method_decl": {
       "type": "SEQ",

@@ -163,7 +163,7 @@ module.exports = grammar({
 
     procedure: ($) => token(prec(10, "procedure")),
 
-    fun: ($) => $.lval,
+    fun: ($) => $.ident,
 
     proc_call: ($) =>
       seq(field("name", $.fun), "(", field("args", optional($.exp_list)), ")"),
@@ -189,7 +189,7 @@ module.exports = grammar({
 
     class: ($) => token(prec(10, "class")),
 
-    classname: ($) => $.lval,
+    classname: ($) => $.ident,
 
     method_decl: ($) =>
       seq(
