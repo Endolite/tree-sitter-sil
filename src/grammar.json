@@ -174,51 +174,8 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "exp"
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "+"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "*"
-                  }
-                ]
-              },
-              {
-                "type": "SYMBOL",
-                "name": "exp"
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
                 "type": "STRING",
                 "value": "("
-              },
-              {
-                "type": "SYMBOL",
-                "name": "exp"
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "+"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "*"
-                  }
-                ]
               },
               {
                 "type": "SYMBOL",
@@ -231,20 +188,28 @@
             ]
           },
           {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
-                "type": "SEQ",
+                "type": "SYMBOL",
+                "name": "exp"
+              },
+              {
+                "type": "CHOICE",
                 "members": [
                   {
                     "type": "STRING",
-                    "value": "-"
+                    "value": "+"
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "exp"
+                    "type": "STRING",
+                    "value": "*"
                   }
                 ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "exp"
               }
             ]
           },
@@ -259,16 +224,8 @@
                     "value": "-"
                   },
                   {
-                    "type": "STRING",
-                    "value": "("
-                  },
-                  {
                     "type": "SYMBOL",
                     "name": "exp"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": ")"
                   }
                 ]
               }
@@ -336,23 +293,6 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "not"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "boolexp"
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "not"
-              },
-              {
                 "type": "STRING",
                 "value": "("
               },
@@ -371,11 +311,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "boolexp"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "logic_bin"
+                "name": "not"
               },
               {
                 "type": "SYMBOL",
@@ -387,10 +323,6 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "STRING",
-                "value": "("
-              },
-              {
                 "type": "SYMBOL",
                 "name": "boolexp"
               },
@@ -401,10 +333,6 @@
               {
                 "type": "SYMBOL",
                 "name": "boolexp"
-              },
-              {
-                "type": "STRING",
-                "value": ")"
               }
             ]
           },
@@ -435,44 +363,6 @@
               {
                 "type": "SYMBOL",
                 "name": "exp"
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ")"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "exp"
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ">"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "<"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "="
-                  }
-                ]
-              },
-              {
-                "type": "SYMBOL",
-                "name": "exp"
-              },
-              {
-                "type": "STRING",
-                "value": ")"
               }
             ]
           }

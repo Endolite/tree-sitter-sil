@@ -13,7 +13,6 @@ module.exports = grammar({
   word: ($) => $.ident,
 
   rules: {
-    // TODO: add the actual grammar rules
     prog: ($) => optional($.statement_list),
 
     statement_list: ($) =>
@@ -59,10 +58,9 @@ module.exports = grammar({
         choice(
           /\d+/,
           $.lval,
+          seq("(", $.exp, ")"),
           seq($.exp, choice("+", "*"), $.exp),
-          seq("(", $.exp, choice("+", "*"), $.exp, ")"),
           choice(seq("-", $.exp)),
-          choice(seq("-", "(", $.exp, ")")),
           $.proc_call,
           $.arr_idx,
           $.method_call,
@@ -77,12 +75,10 @@ module.exports = grammar({
         choice(
           $.true,
           $.false,
+          seq("(", $.boolexp, ")"),
           seq($.not, $.boolexp),
-          seq($.not, "(", $.boolexp, ")"),
           seq($.boolexp, $.logic_bin, $.boolexp),
-          seq("(", $.boolexp, $.logic_bin, $.boolexp, ")"),
           seq($.exp, choice(">", "<", "="), $.exp),
-          seq(")", $.exp, choice(">", "<", "="), $.exp, ")"),
         ),
       ),
 
